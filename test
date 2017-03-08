@@ -3,3 +3,13 @@ clover 3.0.406.0
 fiddler4_V4.5.1.2_setup.1435307371
 http://www.cnblogs.com/wangyuxia/p/5953772.html
 http://www.cnblogs.com/Anita9002/p/4057151.html
+
+
+
+
+http://www.cnblogs.com/wangxiangstudy/p/5848447.html
+
+  g.setFont(font);
+        
+  g.drawRect(10, 20, 100, 100);
+  FontMetrics metrics = new FontMetrics(font){};
