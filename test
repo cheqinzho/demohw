@@ -30,7 +30,7 @@ http://www.cnblogs.com/flish/archive/2010/05/31/1748221.html
 
 
 load data         
-infile 'B.dat'          ------要导入的文件
+infile 'A.dat'          ------要导入的文件
 into table A   ------要导入的数据表
 truncate                  ------导入的方式，支持insert、append、replace、truncate
 fields terminated by '|' OPTIONALLY ENCLOSED BY '"' TRAILING NULLCOLS
@@ -62,3 +62,5 @@ create table A
 alter table A
   add constraint PK_A_T primary key (A)
   using index ;
+  
+sqlldr username/password@sid control=A.ctl
