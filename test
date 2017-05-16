@@ -27,3 +27,38 @@ test....
 
 xn:
 http://www.cnblogs.com/flish/archive/2010/05/31/1748221.html
+
+
+load data         
+infile 'B.dat'          ------要导入的文件
+into table A   ------要导入的数据表
+truncate                  ------导入的方式，支持insert、append、replace、truncate
+fields terminated by '|' OPTIONALLY ENCLOSED BY '"' TRAILING NULLCOLS
+                   ------指定字段间以“|”为分隔符
+(A,B,C)
+                   ------需要导入的字段，默认数据类型是char(255),可指定长度
+                   
+                   "A1"|"b1"|"c1"
+"A2"|"b2"|"c"
+"A3"|"b3"|"c"
+"A4"|"b4"|"c"
+"A5"|"b5"|"c"
+"A6"|"b6"|"c6"
+"A7"|"b7"|"c7"
+"A7"|"b7"|"c7"
+"A7"|"b7"|"c7"
+"A7"|"b7"|"c8"
+
+
+-- Create table
+create table A
+(
+  A VARCHAR2(20) not null,
+  B VARCHAR2(20),
+  C VARCHAR2(20)
+)
+
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table A
+  add constraint PK_A_T primary key (A)
+  using index ;
