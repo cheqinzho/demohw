@@ -1,0 +1,71 @@
+create or replace package body test
+is
+  v_t varchar2(30);
+   v_sql varchar2(4000);
+ 
+
+
+  --私有成员函数
+  function private_fun(t varchar2) return varchar2 is
+  begin
+     v_t := t||'hello';
+     return v_t;
+  end;
+  --实现过程
+  procedure append_proc(t varchar2,a out varchar2) is
+  begin
+   a := t||'hello';
+  end;
+  --过程的重载
+  procedure append_proc(t number,a out varchar2) is
+  begin
+    a := t||'hello';
+  end;
+  --实现函数
+  function append_fun(t varchar2)  return varchar2 is
+
+  VAR_GLCODE VARCHAR2(1000);
+  VAR_GL_SUB_CODE VARCHAR(1000);
+  
+  
+  v_s VARCHAR(1000);
+  
+  v_e VARCHAR(1000);
+  v_tr VARCHAR(1000);
+   --类型定义
+  cursor C_VAR
+       is
+       select GL_CODE,GL_SUB_CODE from GL_CONFIG_MAPPING t  WHERE T.TB_SYSTEM_CODE = t;
+  begin
+    DBMS_OUTPUT.put_line('append_fun start');
+    
+    -- v_sql := t||'hello';
+     v_sql := '';
+     v_s :='AND (';
+     v_e :=' ) ';
+     OPEN C_VAR ;
+     LOOP
+     FETCH C_VAR INTO VAR_GLCODE,VAR_GL_SUB_CODE;
+   --  DBMS_OUTPUT.put_line('GL_CODE='||VAR_GLCODE||'GL_SUB_CODE='||VAR_GL_SUB_CODE);
+    
+     v_tr:=' OR (GB.GL_CODE = ' || VAR_GLCODE ;
+     
+       IF (VAR_GL_SUB_CODE <> 'ANY') THEN
+       
+          v_tr:= v_tr || '  AND GB.SUB_GL_CODE =' || VAR_GL_SUB_CODE ;
+          
+       END IF;
+       
+       
+     v_tr:= v_tr || ') ' || chr(10);
+    --  DBMS_OUTPUT.put_line(v_tr);
+      
+     v_sql:= v_sql  || v_tr ;
+     v_tr:='';
+     exit when C_VAR%notfound;
+     END LOOP;
+     close C_VAR;
+     v_sql:= v_s || v_sql  || v_e ;
+     return v_sql;
+  end;
+end;
