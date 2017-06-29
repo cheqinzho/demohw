@@ -1,7 +1,7 @@
 create or replace package body test
 is
   v_t varchar2(30);
-   v_sql varchar2(4000);
+   v_sql varchar2(32767);
  
 
 
@@ -23,7 +23,7 @@ is
   end;
   --实现函数
   function append_fun(t varchar2)  return varchar2 is
-
+  --t 传入SYSCODE
   VAR_GLCODE VARCHAR2(1000);
   VAR_GL_SUB_CODE VARCHAR(1000);
   
@@ -32,40 +32,48 @@ is
   
   v_e VARCHAR(1000);
   v_tr VARCHAR(1000);
+  v_num number;
    --类型定义
   cursor C_VAR
        is
        select GL_CODE,GL_SUB_CODE from GL_CONFIG_MAPPING t  WHERE T.TB_SYSTEM_CODE = t;
   begin
-    DBMS_OUTPUT.put_line('append_fun start');
-    
-    -- v_sql := t||'hello';
+  
      v_sql := '';
-     v_s :='AND (';
+     v_s :='AND '  || chr(10) || '('  || chr(10);
      v_e :=' ) ';
+     v_num := 0;
      OPEN C_VAR ;
+     
      LOOP
      FETCH C_VAR INTO VAR_GLCODE,VAR_GL_SUB_CODE;
    --  DBMS_OUTPUT.put_line('GL_CODE='||VAR_GLCODE||'GL_SUB_CODE='||VAR_GL_SUB_CODE);
-    
-     v_tr:=' OR (GB.GL_CODE = ' || VAR_GLCODE ;
+     v_num:= v_num +1;
+     if (v_num = 1) THEN
+          v_tr:='  (GB.GL_CODE = ' || CHR(39) || VAR_GLCODE || CHR(39) ;
+      ELSE 
+          v_tr:=' OR (GB.GL_CODE = ' || CHR(39) || VAR_GLCODE || CHR(39) ;
+      END IF;
      
        IF (VAR_GL_SUB_CODE <> 'ANY') THEN
        
-          v_tr:= v_tr || '  AND GB.SUB_GL_CODE =' || VAR_GL_SUB_CODE ;
+          v_tr:= v_tr || '  AND GB.SUB_GL_CODE =' || CHR(39) || VAR_GL_SUB_CODE || CHR(39) ;
           
        END IF;
        
        
      v_tr:= v_tr || ') ' || chr(10);
-    --  DBMS_OUTPUT.put_line(v_tr);
+      DBMS_OUTPUT.put_line(v_tr);
       
      v_sql:= v_sql  || v_tr ;
      v_tr:='';
      exit when C_VAR%notfound;
      END LOOP;
      close C_VAR;
+     
+     --拼接最终的动态SQL条件
      v_sql:= v_s || v_sql  || v_e ;
+     
      return v_sql;
   end;
 end;
