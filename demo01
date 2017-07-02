@@ -1,4 +1,16 @@
-create or replace package body test
+create or replace package t_package
+is
+  --定义过程
+  procedure append_proc(t varchar2,a out varchar2);
+  --过程的重载
+  procedure append_proc(t number,a out varchar2);
+  --定义函数
+  function append_fun(t varchar2) return varchar2;
+
+end;
+/
+
+create or replace package body t_package
 is
   v_t varchar2(30);
    v_sql varchar2(32767);
@@ -77,3 +89,19 @@ is
      return v_sql;
   end;
 end;
+/
+
+
+
+
+
+
+set serveroutput on size 1000000 ;
+begin
+--IB ,BS
+ DBMS_OUTPUT.put_line(t_package.append_fun('BS'));
+end;
+/
+
+
+
