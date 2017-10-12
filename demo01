@@ -4,8 +4,16 @@
 
 AniMenuTag line:100
 
+package com.jeeplus.modules.sys.utils;
 
-private static void parseSiteNodeName(Menu menuItem, String language) {
+import org.springframework.util.StringUtils;
+
+import com.jeeplus.modules.sys.entity.Menu;
+
+
+public class MenuUtils {
+	
+	public static void parseMenuName(Menu menuItem, String language) {
 		String name = menuItem.getName();
 		
 		//取到配置的菜单名中英文的分割
@@ -25,3 +33,5 @@ private static void parseSiteNodeName(Menu menuItem, String language) {
 		}
 
 	}
+	
+}
