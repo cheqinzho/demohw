@@ -35,3 +35,25 @@ public class MenuUtils {
 	}
 	
 }
+
+MenuController.java
+
+@ResponseBody
+	@RequestMapping(value = "getChildren")
+	public List<Menu> getChildren(String parentId){
+		if("-1".equals(parentId)){
+			parentId = "1";
+		}
+		
+		List<Menu> list = systemService.getChildren(parentId);
+		
+		for(Menu menu:list){
+			MenuUtils.parseMenuName(menu, "zh_CN");
+		}
+		return list;
+	}
+	
+	
+	
+	
+1.建一个字段，然后拦截保存到关系表
