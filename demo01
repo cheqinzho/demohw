@@ -5,5 +5,23 @@
 AniMenuTag line:100
 
 
-private static void parseSiteNodeName(Menu menuItem, String language) {  String name = menuItem.getName();    //取到配置的菜单名中英文的分割  String[] nameLanguage = name.split(",");  //循环遍历语言信息  for(int i=0;i<nameLanguage.length;i++){   String[] lang=nameLanguage[i].split("=");   //查找节点当前语言的名称   if(lang.length>1 && lang[0].equals(language)){        menuItem.setName(lang[1]);     break;   }  }  //如果没有国际化就设置为数据库保存的名称  if(StringUtils.isEmpty(menuItem.getName())){   menuItem.setName(name);   }
- }
+private static void parseSiteNodeName(Menu menuItem, String language) {
+		String name = menuItem.getName();
+		
+		//取到配置的菜单名中英文的分割
+		String[] nameLanguage = name.split(",");
+		//循环遍历语言信息
+		for(int i=0;i<nameLanguage.length;i++){
+			String[] lang=nameLanguage[i].split("=");
+			//查找节点当前语言的名称
+			if(lang.length>1 && lang[0].equals(language)){				
+				menuItem.setName(lang[1]);	
+				break;
+			}
+		}
+		//如果没有国际化就设置为数据库保存的名称
+		if(StringUtils.isEmpty(menuItem.getName())){
+			menuItem.setName(name);	
+		}
+
+	}
