@@ -25,7 +25,7 @@ tu_1;tu_2;tu_3;tu_4;tu_5;tu_6;tu_7;tu_8
 
 
 # coding=utf-8
-__author__ = 'cWX322925'
+__author__ = '002444'
 
 f1 = file('1.txt')
 f2 = file('2.txt')
