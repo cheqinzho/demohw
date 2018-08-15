@@ -9,7 +9,7 @@ T||RESTDTBHS||10003452402||Name of 10003452402||FEMALE||WLB||CHINA||0989
 
 
 TUXXGS 20180318
-T||RESTDTGGV||10003452469||Name of 10003452469||FEMALE||WLB||CHINA||0988
+T1||RESTDTGGV||10003452469||Name of 10003452469||FEMALE||WLB||CHINA||0988
 T||RESTDTGGD||10003452443||Name of 10003452443||FEMALE||WLB||CHINA||0981
 T||RESTDTGGD||10003452229||Name of 10003452229||FEMALE||WLB||CHINA||0983
 T||RESTDTQQF||10003434600||Name of 10003434600||FEMALE||WLB||CHINA||0984
@@ -17,10 +17,45 @@ T||RESTDTGPC||10003452421||Name of 10003452421||FEMALE||WLB||CHINA||0902
 T||RESTDTBHS||10003452402||Name of 10003452402||FEMALE||WLB||CHINA||0989
 
 
-
-
-
-
 key;ziduan;old;new
 tu_1;tu_2;tu_3;tu_4;tu_5;tu_6;tu_7;tu_8
 10003452443;
+
+
+
+
+# coding=utf-8
+__author__ = 'cWX322925'
+
+f1 = file('1.txt')
+f2 = file('2.txt')
+f3 = file('3.txt')
+
+f1data = f1.readlines()
+f2data = f2.readlines()
+del f1data[0]
+del f2data[0]
+
+for i in range(len(f1data)):
+    f1line = f1data[i].split("||");
+    #key1 = f1line.split("||")[2];
+
+    print  "key1:"+f1line[2] + "   " + f1data[i]
+    for j in range(len(f2data)):
+        # print f2data[j]
+        f2line = f2data[j].split("||");
+       # key2 = f2line.split("||")[2];
+        if f1line[2] == f2line[2]: #找到对比的内容要一个一个字段比较
+              print  "key2:"+f1line[2] + "   " + f2data[j]
+              different ="";
+              if f1line[0] != f2line[0]:
+                    # key;ziduan;old;new
+                    #tu_1;tu_2;tu_3;tu_4;tu_5;tu_6;tu_7;tu_8
+                    different = f1line[2] +'[tu_1]'+ f1line[0] + ':'+ f2line[0];
+                    print different
+
+
+
+
+print f1data
+f1.close()
