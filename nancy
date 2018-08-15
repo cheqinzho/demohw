@@ -22,7 +22,6 @@ tu_1;tu_2;tu_3;tu_4;tu_5;tu_6;tu_7;tu_8
 10003452443;
 
 
-
 # coding=utf-8
 __author__ = '002444'
 
@@ -39,13 +38,13 @@ for i in range(len(f1data)):
     f1line = f1data[i].split("||");
     #key1 = f1line.split("||")[2];
 
-    print  "key1:"+f1line[2] + "   " + f1data[i]
+    #print  "key1:"+f1line[2] + "   " + f1data[i]
     for j in range(len(f2data)):
         # print f2data[j]
         f2line = f2data[j].split("||");
        # key2 = f2line.split("||")[2];
         if f1line[2] == f2line[2]: #找到对比的内容要一个一个字段比较
-              print  "key2:"+f1line[2] + "   " + f2data[j]
+             # print  "key2:"+f1line[2] + "   " + f2data[j]
               different ="";
               flag = 0;#不同的标记
               # key;ziduan;old;new
@@ -58,7 +57,19 @@ for i in range(len(f1data)):
                     different = different  +'[tu_2]'+ f1line[1] + ':'+ f2line[1];
               if f1line[3] != f2line[3]:
                     flag =1;
-                    different = different  +'[tu_3]'+ f1line[3] + ':'+ f2line[3];
+                    different = different  +'[tu_4]'+ f1line[3] + ':'+ f2line[3];
+              if f1line[4] != f2line[4]:
+                    flag =1;
+                    different = different  +'[tu_5]'+ f1line[4] + ':'+ f2line[4];
+              if f1line[5] != f2line[5]:
+                    flag =1;
+                    different = different  +'[tu_6]'+ f1line[5] + ':'+ f2line[5];
+              if f1line[6] != f2line[6]:
+                    flag =1;
+                    different = different  +'[tu_7]'+ f1line[6] + ':'+ f2line[6];
+              if f1line[5] != f2line[5]:
+                    flag =1;
+                    different = different  +'[tu_8]'+ f1line[7] + ':'+ f2line[7];
               if flag == 1:
                    print f1line[2] + ':' + different
                    f3.writelines(f1line[2] + ':' + different +'\n')
