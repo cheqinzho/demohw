@@ -23,13 +23,12 @@ tu_1;tu_2;tu_3;tu_4;tu_5;tu_6;tu_7;tu_8
 
 
 
-
 # coding=utf-8
 __author__ = '002444'
 
 f1 = file('1.txt')
 f2 = file('2.txt')
-f3 = file('3.txt')
+f3 = file('3.txt','w')
 
 f1data = f1.readlines()
 f2data = f2.readlines()
@@ -48,14 +47,20 @@ for i in range(len(f1data)):
         if f1line[2] == f2line[2]: #找到对比的内容要一个一个字段比较
               print  "key2:"+f1line[2] + "   " + f2data[j]
               different ="";
+              flag = 0;#不同的标记
+              # key;ziduan;old;new
+              #tu_1;tu_2;tu_3;tu_4;tu_5;tu_6;tu_7;tu_8
               if f1line[0] != f2line[0]:
-                    # key;ziduan;old;new
-                    #tu_1;tu_2;tu_3;tu_4;tu_5;tu_6;tu_7;tu_8
-                    different = f1line[2] +'[tu_1]'+ f1line[0] + ':'+ f2line[0];
-                    print different
-
-
-
-
-print f1data
+                    flag =1;
+                    different = different  +'[tu_1]'+ f1line[0] + ':'+ f2line[0];
+              if f1line[1] != f2line[1]:
+                    flag =1;
+                    different = different  +'[tu_2]'+ f1line[1] + ':'+ f2line[1];
+              if f1line[3] != f2line[3]:
+                    flag =1;
+                    different = different  +'[tu_3]'+ f1line[3] + ':'+ f2line[3];
+              if flag == 1:
+                   print f1line[2] + ':' + different
+                   f3.writelines(f1line[2] + ':' + different +'\n')
+#print f1data
 f1.close()
